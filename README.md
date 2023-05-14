@@ -1,2 +1,2 @@
 # anomusix
-This is a free ite for listen music
+This is a free site for listen music

@@ -1,0 +1,93 @@
+.song__author {
+    font-size: 22px;
+}
+
+.song__name {
+    margin: 10px 0;
+    color: yellowgreen;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.song__attrs {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+}
+
+.song__cover {
+    border-radius: 10px;
+}
+
+.song__btns {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.btn__icon-1 {
+    padding: 15px 15px;
+    background: #dc4a4a;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    transition: .3s;
+    width: 60px;
+}
+
+.btn__icon-1:hover {
+    background: #a52020;
+    transition: .3s;
+}
+
+.btn__icon-2 {
+    padding: 15px 15px;
+    background: #749038;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    transition: .3s;
+    width: 60px;
+}
+
+.btn__icon-2:hover {
+    background: #6a7b44;
+    transition: .3s;
+}
+
+.listen__btn {
+    background: #d92b2b;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px 0 0;
+    font-size: 20px;
+    border-radius: 10px;
+    gap: 20px;
+    cursor: pointer;
+}
+
+.download__btn {
+    background: #87af46;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px 0 0;
+    font-size: 20px;
+    border-radius: 10px;
+    gap: 20px;
+    cursor: pointer;
+}
+
+.download__format-1 {
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.download__format-2 {
+    display: flex;
+    flex-direction: column;
+    gap: 3px 0;
+    text-align: left;
+    font-weight: bold;
+    cursor: pointer;
+}
+

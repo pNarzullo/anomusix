@@ -1,0 +1,40 @@
+{% extends 'music/base.html' %}
+{% load static %}
+
+{% block title %}Скачать {{ song.name }}{% endblock %}
+
+{% block main %}
+
+    <p class="song__author">{{ song.author }}</p>
+
+    <p class="song__name">{{ song.name }}</p>
+
+    <div class="song__attrs">
+
+    <img src="{{ song.cover.url }}" width="300" height="200" alt="{{ song.name }}" class="song__cover">
+
+    <div class="song__btns">
+
+        <a href="{{ song.audio.url }}" class="listen__btn">
+
+            <img src="{% static 'img/play.svg' %}" class="btn__icon-1">
+            <button class="download__format-1">
+                <p>Слушать</p>
+            </button>
+
+        </a><a href="{{ song.audio.url }}" download class="download__btn">
+
+            <img src="{% static 'img/arrow-down-circle.svg' %}" class="btn__icon-2">
+            <button class="download__format-2">
+                <p>Скачать</p>
+                <p>{{ song.name }}.mp3</p>
+            </button>
+
+        </a>
+
+    </div>
+
+    </div>
+
+
+{% endblock %}

@@ -1,0 +1,34 @@
+.register-conf, .login-conf {
+    background-color: #000000;
+    padding: 10px;
+    border-radius: 10px ;
+    font-weight: bold;
+}
+
+form {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px 0;
+}
+
+input {
+    width: 50%;
+    padding: 15px;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+}
+
+.form-align {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 2px solid #000000;
+    border-radius: 10px;
+}
+
+.form-error {
+    color: #ffdd00;
+    text-shadow: 1px 1px 1px #000000;
+    font-weight: bold;
+}

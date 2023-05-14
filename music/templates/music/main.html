@@ -1,0 +1,47 @@
+{% extends 'music/base.html' %}
+{% load static %}
+
+{% block title %}Слушайте музыку бесплатно{% endblock %}
+
+{% block main %}
+
+    <h1 class="page__title">Музыка со всего мира</h1>
+
+    <div class="audio__items">
+        {% for s in songs %}
+
+            {#            <div class="audio__item">#}
+            {#                <audio controls {# loop >#}
+            {#                    <source src="{{ s.audio.url }}">#}
+            {#                    На вашем браузере не поддерживаются аудио файлы.#}
+            {#                </audio>#}
+            {#                <a href="{% url 'music:song' s.pk %}">#}
+            {#                    <ion-icon name="arrow-down-circle-outline" class="download"></ion-icon>#}
+            {#                </a>#}
+            {#            </div>#}
+
+            <div class="audio__item">
+
+                <audio-player title="{{ s.author }} / {{ s.name }}"
+                              src="{{ s.audio.url }}">
+                </audio-player>
+
+                <a href="{# {{ s.audio.url }} #}{% url 'music:detailed' pk=s.pk %}"
+                        {# download #}>
+                    <svg class="download" xmlns="http://www.w3.org/2000/svg" width="512"
+                         height="512" fill="#fff" viewBox="0 0 512 512">
+                        <path d="M256,464c114.87,0,208-93.13,208-208S370.87,48,256,48,48,141.13,48,256,141.13,464,256,464ZM164.64,251.35a16,16,0,0,1,22.63-.09L240,303.58V170a16,16,0,0,1,32,0V303.58l52.73-52.32A16,16,0,1,1,347.27,274l-80,79.39a16,16,0,0,1-22.54,0l-80-79.39A16,16,0,0,1,164.64,251.35Z"/>
+                    </svg>
+                </a>
+
+            </div>
+
+        {% endfor %}
+
+        {#    <audio class="audio__item" src="{% static 'audio/grunt-2.mp3' %}" controls preload="none">Аудио</audio>#}
+        {#    <audio class="audio__item" src="{% static 'audio/haha.mp3' %}" controls preload="none">Аудио</audio> #}
+
+    </div>
+
+
+{% endblock %}

@@ -1,0 +1,205 @@
+{% load static %}
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+{#    <link rel="stylesheet"#}
+{#          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"#}
+{#          integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="#}
+{#          crossorigin="anonymous" referrerpolicy="no-referrer"/>#}
+
+    {#    <link rel="stylesheet" href="{% static 'css/bulma.css' %}">#}
+
+    <link rel="stylesheet" href="{% static 'css/detailed.css' %}">
+    <link rel="stylesheet" href="{% static 'css/users.css' %}">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+<div class="wrapper">
+
+    <header class="header">
+
+        <div class="nav">
+
+            <div class="nav__item">
+                <a href="{% url 'music:homepage' %}" class="brand">
+                    <img src="{% static 'img/anomusix.png' %}" width="200"
+                         alt="anomusix">
+                </a>
+            </div>
+
+{#            {% if user.is_authenticated %}#}
+
+            <div class="search_n_login">
+
+                <div class="nav__item"><input class="search" type="search"
+                                              placeholder="Найти песню...">
+                </div>
+
+                {#-----------------------------------------------------------------------#}
+
+                <div class="nav__item">
+
+                {% if not user.is_authenticated %}
+
+                    <a id="open-modal-btn" class="login">
+                        Login
+                    </a>
+
+                {% else %}
+                    <div class="user-logout" style="display: flex; align-items: center; gap: 0 0px; border: 2px solid white; border-radius: 5px; padding: 0 0 0 10px; background: #5d5e5e;">
+
+                        <h1 class="username" style="color: white; border-right: 2px solid white; padding-right: 11px;">{{ user.username }}</h1>
+
+                        <a class="logout-btn" href="{% url 'music:logout' %}">Выйти</a>
+
+                    </div>
+
+                {% endif %}
+
+                </div>
+
+                <div class="modal" id="my-modal">
+                    <div class="modal__box">
+                        <button id="close-my-modal-btn" class="modal__close-btn"><ion-icon name="close-outline"></ion-icon></button>
+
+                        <a href="{% url 'music:register' %}" class="register-btn">Регистрация</a>
+                        <a href="{% url 'music:login' %}" class="login-btn">Вход</a>
+
+                    </div>
+                </div>
+
+                {#-----------------------------------------------------------------------#}
+            </div>
+
+{#            {% endif %}#}
+
+
+        </div>
+
+    </header>
+
+    <main class="main">
+
+        <aside class="left__side">
+            <h1 class="playlist">
+                <img src="{% static 'img/musical-note.svg' %}" class="playlist__icon">
+                Плейлисты
+            </h1>
+            <ul class="categories">
+
+                {% for c in categories %}
+
+                    {% if c.pk == category_selected %}
+
+                        <li class="category__item">
+                            <ion-icon name="disc-outline"
+                                      style="color: yellow"></ion-icon>
+                            {{ c.name }}
+                        </li>
+
+                    {% else %}
+
+                        <a href="{{ c.get_absolute_url }}">
+                            <li class="category__item">
+                                <img src="{% static 'img/disc.svg' %}" width="18px">
+                                {{ c.name }}
+                            </li>
+                        </a>
+
+                    {% endif %}
+
+                {% endfor %}
+
+            </ul>
+        </aside>
+
+        <div class="center__side">
+            {% block main %}
+            {% endblock %}
+            {% if page_obj.has_other_pages %}
+
+                <ul class="list__pages">
+                    {% if page_obj.has_previous %}
+                        <a href="?page={{ page_obj.previous_page_number }}">
+                            <li class="page__num">&blacktriangleleft;</li>
+                        </a>
+                    {% endif %}
+
+
+                    {% for p in paginator.page_range %}
+                        {% if page_obj.number == p %}
+                            <li class="page__num-selected">{{ p }}</li>
+                        {% elif p >= page_obj.number|add:-2 and p <= page_obj.number|add:2 %}
+
+                            <a href="?page={{ p }}">
+                                <li class="page__num">{{ p }}</li>
+                            </a>
+                        {% endif %}
+                    {% endfor %}
+                    {% if page_obj.has_next %}
+                        <a href="?page={{ page_obj.next_page_number }}">
+                            <li class="page__num">&blacktriangleright;</li>
+                        </a>
+                    {% endif %}
+                </ul>
+
+            {% endif %}
+            {#        sefon.ru#}
+        </div>
+
+        <aside class="right__side">
+
+            <h1 class="hit__songs">
+                <img src="{% static 'img/flame.svg' %}" width="25px">
+                Лучшие песни
+            </h1>
+
+            <hr>
+
+            {% for b in best %}
+
+                <a href="{% url 'music:detailed' pk=b.pk %}" class="best__song">
+
+                    <p class="best__author-n-name">
+
+                        <img src="{% static 'img/radio-button-on.svg' %}" width="15px">
+
+                        {{ b.author }} - {{ b.name }}
+
+                    </p>
+
+                </a>
+
+            {% endfor %}
+
+        </aside>
+
+    </main>
+
+    <footer class="footer">
+
+        <p class="footer__text">Слушайте музыку бесплатно или скачайте в формате mp3.</p>
+    </footer>
+
+</div>
+
+
+<script type="module"
+        src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+
+<script nomodule
+        src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+<script src="{% static 'js/modal.js' %}"></script>
+
+<script src="{% static 'js/player.js' %}"></script>
+
+</body>
+</html>
